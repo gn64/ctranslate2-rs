@@ -400,6 +400,7 @@ fn main() {
     .std("c++17")
     .static_crt(cfg!(target_os = "windows"))
     .flag_if_supported("/EHsc")
+    .flag_if_supported("-fPIC")
     .compile("ct2rs");
 }
 
