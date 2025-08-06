@@ -275,7 +275,10 @@ fn main() {
             println!("cargo::rustc-link-arg=/FORCE:MULTIPLE");
             cmake.profile("Release").cxxflag("/EHsc").static_crt(true);
         } else if os == Os::Linux {
-            cmake.define("CMAKE_POSITION_INDEPENDENT_CODE", "ON");
+            cmake
+                .define("CMAKE_POSITION_INDEPENDENT_CODE", "ON")
+                .env("CFLAGS", "-fPIC")
+                .env("CXXFLAGS", "-fPIC");
         }
 
         if cuda {
