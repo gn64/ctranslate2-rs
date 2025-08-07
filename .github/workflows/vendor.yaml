@@ -180,6 +180,7 @@ jobs:
         with:
           name: dyn-${{ matrix.name }}
           path: |
+            /opt/intel/oneapi/mkl/2023.2.0/lib
             /opt/intel/oneapi/compiler/2023.2.0/mac/compiler/lib/libiomp5.dylib
 
       - name: Upload bundle(Linux)
