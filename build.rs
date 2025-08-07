@@ -287,7 +287,7 @@ fn main() {
             cmake.define("CUDA_TOOLKIT_ROOT_DIR", &cuda);
             cmake.define("CUDA_ARCH_LIST", "Common");
             if cfg!(feature = "cuda-small-binary") {
-                cmake.define("CUDA_NVCC_FLAGS", "-Xfatbin=-compress-all");
+                cmake.define("CUDA_NVCC_FLAGS", "-Xfatbin=-compress-all -Xcompiler=-fPIC");
             }
 
             if os == Os::Linux {
