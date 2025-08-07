@@ -290,6 +290,10 @@ fn main() {
                 cmake.define("CUDA_NVCC_FLAGS", "-Xfatbin=-compress-all");
             }
 
+            if os == Os::Linux {
+                cmake.define("CMAKE_CUDA_FLAGS", "-Xcompiler=-fPIC");
+            }
+
             println!("cargo:rustc-link-search={}", cuda.join("lib").display());
             println!("cargo:rustc-link-search={}", cuda.join("lib64").display());
             println!("cargo:rustc-link-search={}", cuda.join("lib/x64").display());
