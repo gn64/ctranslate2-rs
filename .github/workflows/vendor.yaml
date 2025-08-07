@@ -190,6 +190,7 @@ jobs:
           path: |
             /usr/lib/x86_64-linux-gnu/libcudnn.so
             /usr/local/cuda/lib64/libcudart_static.a
+            /opt/intel/lib/intel64
 
       - name: Upload bundle(Windows)
         if: matrix.name == 'windows-x86_64'
