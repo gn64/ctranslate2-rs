@@ -277,10 +277,7 @@ fn main() {
             println!("cargo::rustc-link-arg=/FORCE:MULTIPLE");
             cmake.profile("Release").cxxflag("/EHsc").static_crt(true);
         } else if os == Os::Linux {
-            cmake
-                .define("CMAKE_POSITION_INDEPENDENT_CODE", "ON")
-                .env("CFLAGS", "-fPIC")
-                .env("CXXFLAGS", "-fPIC");
+            cmake.define("CMAKE_POSITION_INDEPENDENT_CODE", "ON");
         }
 
         if cuda {
@@ -288,13 +285,18 @@ fn main() {
             cmake.define("WITH_CUDA", "ON");
             cmake.define("CUDA_TOOLKIT_ROOT_DIR", &cuda);
             cmake.define("CUDA_ARCH_LIST", "Common");
-            if cfg!(feature = "cuda-small-binary") {
-                cmake.define("CUDA_NVCC_FLAGS", "-Xfatbin=-compress-all -Xcompiler=-fPIC");
-            }
-
-            if os == Os::Linux {
-                cmake.define("CMAKE_CUDA_FLAGS", "-Xcompiler=-fPIC");
-            }
+            cmake.define(
+                "CUDA_NVCC_FLAGS",
+                format!(
+                    "{}{}",
+                    if cfg!(feature = "cuda-small-binary") {
+                        "-Xfatbin=-compress-all "
+                    } else {
+                        ""
+                    },
+                    "-Xcompiler=-fPIC"
+                ),
+            );
 
             println!("cargo:rustc-link-search={}", cuda.join("lib").display());
             println!("cargo:rustc-link-search={}", cuda.join("lib64").display());
@@ -425,7 +427,7 @@ fn library_name(name: &str) -> &str {
 
 #[cfg(target_os = "windows")]
 fn is_library(name: &&str) -> bool {
-    name.ends_with(".lib")
+    name.ends_with(".lib") && !name.starts_with(".")
 }
 
 #[cfg(target_os = "windows")]
