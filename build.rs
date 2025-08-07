@@ -127,6 +127,7 @@ fn load_vendor(os: Os, aarch64: bool) -> Option<PathBuf> {
     match (os, aarch64) {
         (Os::Win, false) => {
             println!("cargo:rustc-link-lib=static=cudart_static");
+            println!("cargo:rustc-link-lib=cudnn");
             build_dnnl();
             Some(out_dir.to_path_buf())
         }
