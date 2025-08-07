@@ -207,4 +207,5 @@ jobs:
           name: dyn2-${{ matrix.name }}
           path: |
             C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/lib/x64/cudart_static.lib
+            C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/lib/x64/cudnn.lib
             C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/bin/cudnn64_9.dll
