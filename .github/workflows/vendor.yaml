@@ -198,7 +198,7 @@ jobs:
         with:
           name: dyn-${{ matrix.name }}
           path: |
-            intelmkl.devel.win-x64/build/native/lib/libiomp5md.dll
+            intelmkl.devel.win-x64/build/native/lib
       - name: Upload bundle(Windows)
         if: matrix.name == 'windows-x86_64'
         uses: actions/upload-artifact@v4
