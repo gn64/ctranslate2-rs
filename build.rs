@@ -128,6 +128,7 @@ fn load_vendor(os: Os, aarch64: bool) -> Option<PathBuf> {
         (Os::Win, false) => {
             println!("cargo:rustc-link-lib=iomp5md");
             println!("cargo:rustc-link-lib=static=cudart_static");
+            build_dnnl();
             Some(out_dir.to_path_buf())
         }
         (Os::Mac, true) => {
@@ -140,12 +141,14 @@ fn load_vendor(os: Os, aarch64: bool) -> Option<PathBuf> {
         }
         (Os::Mac, false) => {
             println!("cargo:rustc-link-lib=iomp5");
+            build_dnnl();
             Some(out_dir.to_path_buf())
         }
         (Os::Linux, false) => {
             println!("cargo:rustc-link-lib=cudnn");
             println!("cargo:rustc-link-lib=gomp");
             println!("cargo:rustc-link-lib=static=cudart_static");
+            build_dnnl();
             Some(out_dir.to_path_buf())
         }
         _ => None,
