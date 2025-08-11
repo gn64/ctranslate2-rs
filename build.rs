@@ -412,7 +412,7 @@ fn main() {
     .file("src/sys/whisper.cpp")
     .include("CTranslate2/include")
     .std("c++17")
-    .static_crt(cfg!(target_os = "windows"))
+    .static_crt(cfg!(feature = "sentencepiece") && cfg!(target_os = "windows"))
     .flag_if_supported("/EHsc")
     .flag_if_supported("-fPIC")
     .compile("ct2rs");
