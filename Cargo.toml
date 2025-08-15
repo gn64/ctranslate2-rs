@@ -73,7 +73,7 @@ whisper = [
     "dep:ndarray",
     "dep:serde",
     "dep:serde_json",
-    "all-tokenizers",
+    "tokenizers",
 ]
 flash-attention = []
 tensor-parallel = []
