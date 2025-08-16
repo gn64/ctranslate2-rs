@@ -269,7 +269,8 @@ fn main() {
         if os == Os::Win {
             let rustflags = env::var("CARGO_ENCODED_RUSTFLAGS").unwrap_or_default();
             println!("cargo::rustc-link-arg=/FORCE:MULTIPLE");
-            cmake.profile("Release").cxxflag("/EHsc");
+            cmake.define("CMAKE_MSVC_RUNTIME_LIBRARY", "MultiThreadedDLL");
+            cmake.profile("Release").cxxflag("/EHsc").cxxflag("/MD");
         }
 
         if cuda {
