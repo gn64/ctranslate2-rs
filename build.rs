@@ -82,6 +82,10 @@ fn build_dnnl() {
         .define("ONEDNN_ENABLE_PRIMITIVE", "CONVOLUTION;REORDER")
         .define("ONEDNN_BUILD_GRAPH", "OFF")
         .build();
+    // Windows用の動的CRT設定を追加
+    if cfg!(target_os = "windows") {
+        config.define("CMAKE_MSVC_RUNTIME_LIBRARY", "MultiThreadedDLL");
+    }
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
     println!("cargo:rustc-link-lib=static=dnnl");
     println!("cargo:include={}/include", dst.display());
