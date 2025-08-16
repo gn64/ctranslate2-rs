@@ -268,12 +268,8 @@ fn main() {
             .define("CMAKE_POLICY_VERSION_MINIMUM", "3.5");
         if os == Os::Win {
             let rustflags = env::var("CARGO_ENCODED_RUSTFLAGS").unwrap_or_default();
-            if !rustflags.contains("target-feature=+crt-static") {
-                println!("cargo:warning=For Windows compilation, set `RUSTFLAGS=-C target-feature=+crt-static`.");
-            }
-
             println!("cargo::rustc-link-arg=/FORCE:MULTIPLE");
-            cmake.profile("Release").cxxflag("/EHsc").static_crt(true);
+            cmake.profile("Release").cxxflag("/EHsc");
         }
 
         if cuda {
@@ -396,7 +392,6 @@ fn main() {
     .file("src/sys/whisper.cpp")
     .include("CTranslate2/include")
     .std("c++17")
-    .static_crt(cfg!(target_os = "windows"))
     .flag_if_supported("/EHsc")
     .compile("ct2rs");
 }
