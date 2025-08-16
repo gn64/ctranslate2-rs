@@ -139,3 +139,7 @@ name = "whisper"
 
 [package.metadata.docs.rs]
 features = ["whisper", "hub"]
+
+[patch.crates-io]
+# 修正版の esaxx-rs を使用（動的ランタイムリンク対応）
+esaxx-rs = { git = "https://github.com/thewh1teagle/esaxx-rs", branch = "feat/dynamic-msvc-link" }
